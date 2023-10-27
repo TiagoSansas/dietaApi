@@ -20,6 +20,17 @@ export async function snacksRoutes(app: FastifyInstance) {
     };
   });
 
+  app.get("/:id", async (request) => {
+    const getSnackIdParams = z.object({
+      id: z.string().uuid(),
+    });
+
+    const { id } = getSnackIdParams.parse(request.params);
+
+    const snack = await knex("snack").where({ id }).first();
+    return { snack };
+  });
+
   app.post("/:id", async (request, response) => {
     const createSnackSchema = z.object({
       name: z.string(),
@@ -35,7 +46,7 @@ export async function snacksRoutes(app: FastifyInstance) {
     const { name, description, date_time, pertence } = createSnackSchema.parse(
       request.body
     );
-    debugger;
+
     try {
       const userExists = await knex("users").where({ id }).first();
 
