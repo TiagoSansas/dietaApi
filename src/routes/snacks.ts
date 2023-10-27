@@ -54,7 +54,6 @@ export async function snacksRoutes(app: FastifyInstance) {
         return response.status(404).send({ error: "Usuário não encontrado" });
       }
 
-      console.log(request.body);
       const dateTime = new Date(date_time);
 
       await knex("snack").insert({
@@ -67,6 +66,39 @@ export async function snacksRoutes(app: FastifyInstance) {
       });
 
       response.status(201).send();
+    } catch (error) {
+      response.status(500).send();
+    }
+  });
+  app.put("/:id", async (request, response) => {
+    const createSnackSchema = z.object({
+      name: z.string(),
+      description: z.string(),
+      date_time: z.string(),
+      pertence: z.boolean(),
+    });
+    const getUserIdParams = z.object({
+      id: z.string().uuid(),
+    });
+
+    const { id } = getUserIdParams.parse(request.params);
+    const { name, description, date_time, pertence } = createSnackSchema.parse(
+      request.body
+    );
+
+    try {
+      const dateTime = new Date(date_time);
+
+      await knex("snack")
+        .update({
+          name,
+          description,
+          date_time: dateTime,
+          pertence,
+        })
+        .where({ id });
+
+      response.status(204).send();
     } catch (error) {
       response.status(500).send();
     }
