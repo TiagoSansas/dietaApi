@@ -5,8 +5,17 @@ declare module "knex/types/tables" {
     id: string;
     name: string;
   }
+  interface Snack {
+    id: string;
+    name: string;
+    description: string;
+    date_time: Date;
+    pertence: boolean;
+    user_id: string;
+  }
 
   interface Tables {
     users: User;
+    snack: Snack;
   }
 }

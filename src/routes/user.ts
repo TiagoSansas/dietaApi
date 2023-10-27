@@ -25,7 +25,6 @@ export async function usersRoutes(app: FastifyInstance) {
       name: z.string(),
     });
     const { name } = createUserBodySchema.parse(request.body);
-    console.log(name);
 
     await knex("users").insert({
       id: randomUUID(),
@@ -63,7 +62,7 @@ export async function usersRoutes(app: FastifyInstance) {
       return response.status(400).send({ message: "Registro não encontrado" });
     }
 
-    await knex("users").delete(id);
+    await knex("users").where({ id }).delete();
     return response.status(204).send();
   });
 }
