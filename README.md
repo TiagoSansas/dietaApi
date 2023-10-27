@@ -26,5 +26,3 @@ _As refeições devem ser relacionadas a um usuário._
 [x] Quantidade total de refeições dentro da dieta
 
 [x] Quantidade total de refeições fora da dieta
-
-[] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
