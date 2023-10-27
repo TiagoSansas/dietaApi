@@ -25,7 +25,6 @@ export async function usersRoutes(app: FastifyInstance) {
       name: z.string(),
     });
     const { name } = createUserBodySchema.parse(request.body);
-    console.log(name);
 
     await knex("users").insert({
       id: randomUUID(),
