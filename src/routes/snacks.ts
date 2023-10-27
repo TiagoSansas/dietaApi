@@ -103,4 +103,14 @@ export async function snacksRoutes(app: FastifyInstance) {
       response.status(500).send();
     }
   });
+  app.delete("/:id", async (request, response) => {
+    const getUserIdParams = z.object({
+      id: z.string().uuid(),
+    });
+
+    const { id } = getUserIdParams.parse(request.params);
+
+    await knex("snack").where({ id }).delete();
+    return response.status(204).send();
+  });
 }

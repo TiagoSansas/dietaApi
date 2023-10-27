@@ -2,9 +2,9 @@
 
 [ x ] Deve ser possível criar um usuário
 
-[ ] Deve ser possível identificar o usuário entre as requisições
+[ x] Deve ser possível identificar o usuário entre as requisições
 
-[ ] Deve ser possível registrar uma refeição feita, com as seguintes informações:
+[ x] Deve ser possível registrar uma refeição feita, com as seguintes informações:
 
 _As refeições devem ser relacionadas a um usuário._
 
@@ -19,7 +19,7 @@ _As refeições devem ser relacionadas a um usuário._
 
 [ ] Deve ser possível listar todas as refeições de um usuário
 
-[ ] Deve ser possível visualizar uma única refeição
+[ x] Deve ser possível visualizar uma única refeição
 
 [ ] Deve ser possível recuperar as métricas de um usuário
 
