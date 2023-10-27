@@ -31,6 +31,42 @@ export async function snacksRoutes(app: FastifyInstance) {
     return { snack };
   });
 
+  app.get("/user/:id", async (request, response) => {
+    const getUserIdParams = z.object({
+      id: z.string().uuid(),
+    });
+    const { id } = getUserIdParams.parse(request.params);
+    const userSnackList = await knex("snack")
+      .where({ user_id: id })
+      .select(
+        "snack.id",
+        "snack.name",
+        "snack.description",
+        "snack.date_time",
+        "snack.pertence"
+      );
+    return { userSnackList };
+  });
+
+  app.get("/summary/:id", async (request, response) => {
+    const getUserIdParams = z.object({
+      id: z.string().uuid(),
+    });
+    const { id } = getUserIdParams.parse(request.params);
+    const countTrue = await knex("snack")
+      .where({ user_id: id, pertence: true })
+      .count("pertence as count_true");
+    const countFalse = await knex("snack")
+      .where({ user_id: id, pertence: false })
+      .count("pertence as count_false");
+    return { countTrue, countFalse };
+  });
+
+  app.get("/fullsnack", async () => {
+    const count = await knex("snack").count("* as total");
+    return { count };
+  });
+
   app.post("/:id", async (request, response) => {
     const createSnackSchema = z.object({
       name: z.string(),
