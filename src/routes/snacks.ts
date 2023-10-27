@@ -4,6 +4,22 @@ import { FastifyInstance } from "fastify";
 import { z } from "zod";
 
 export async function snacksRoutes(app: FastifyInstance) {
+  app.get("/", async () => {
+    const snacks = await knex("snack")
+      .select(
+        "snack.id",
+        "snack.name",
+        "snack.description",
+        "snack.date_time",
+        "snack.pertence",
+        "users.name as nameUser"
+      )
+      .join("users", "snack.user_id", "users.id");
+    return {
+      snacks,
+    };
+  });
+
   app.post("/:id", async (request, response) => {
     const createSnackSchema = z.object({
       name: z.string(),
